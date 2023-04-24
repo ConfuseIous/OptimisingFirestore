@@ -24,15 +24,21 @@ struct ContentView: View {
 		NavigationStack {
 			VStack {
 				VStack(spacing: 10) {
-					Text("Total Items in Array: ")
+					Text("Total Items in Array: \(listingViewModel.listings.count)")
 						.frame(maxWidth: .infinity, alignment: .leading)
-					Text("From JSON: ")
+					Text("From Local: \(listingViewModel.localDataCount)")
 						.frame(maxWidth: .infinity, alignment: .leading)
-					Text("From Firestore: ")
-						.frame(maxWidth: .infinity, alignment: .leading)
-					Text("Fetched At: ")
+					Text("From Firestore: \(listingViewModel.remoteDataCount)")
 						.frame(maxWidth: .infinity, alignment: .leading)
 				}.padding()
+				Divider()
+				if listingViewModel.listings.isEmpty {
+					VStack {
+						Spacer()
+						Text("No Listings Found")
+						Spacer()
+					}
+				}
 				List {
 					ForEach(listingViewModel.listings) { listing in
 						VStack {
