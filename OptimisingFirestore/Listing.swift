@@ -14,6 +14,9 @@ struct Listing: Identifiable, Codable {
 	var lastUpdated: Date
 	
 	// MARK: - Saving To Local plist
+	// You don't necessarily need to do this. Use whatever local storage method works best for you.
+	// For apps with larger caches (ie anything with infinite scroll), you should NOT be saving to plists.
+	
 	static var archiveURL: URL {
 		return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Listings.plist")
 	}

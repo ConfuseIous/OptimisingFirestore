@@ -27,7 +27,7 @@ class ListingViewModel: ObservableObject {
 				let documentData = document.data()
 
 				if documentData["isDeleted"] as? Bool == true {
-					// Remove deleted devices from the local cache
+					// Remove deleted listings from the local cache
 					localListings.removeAll(where: {$0.id == documentData["id"] as? String})
 				} else {
 					listings.append(Listing(
@@ -43,6 +43,7 @@ class ListingViewModel: ObservableObject {
 			self.remoteDataCount = listings.count
 
 			localListings = localListings.filter({
+				// Remove listings for which updated data is available
 				let listing = $0
 				return !listings.contains(where: {$0.id == listing.id})
 			})
